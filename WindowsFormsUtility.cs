@@ -9,12 +9,12 @@ namespace CPUWindowsFormFramework
 {
     public class WindowsFormsUtility
     {
-        public static void SetListBinding(ComboBox lst, DataTable dt, string tablename)
+        public static void SetListBinding(ComboBox lst, DataTable parenttable, DataTable childtable, string tablename)
         {
-            lst.DataSource = dt;
+            lst.DataSource = parenttable;
             lst.ValueMember = tablename + "Id";
             lst.DisplayMember = lst.Name.Substring(3);
-            lst.DataBindings.Add("SelectedValue", dt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            lst.DataBindings.Add("SelectedValue", childtable, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         public static void SetControlBinding(Control ctrl, DataTable dt)
