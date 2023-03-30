@@ -5,6 +5,7 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace CPUWindowsFormFramework
 {
@@ -53,6 +54,7 @@ namespace CPUWindowsFormFramework
 
         public static void FormatGridForEdit(DataGridView grid, string tablename)
         {
+            grid.EditMode = DataGridViewEditMode.EditOnEnter;
             DoFormatGrid(grid, tablename);
         }
 
@@ -61,10 +63,28 @@ namespace CPUWindowsFormFramework
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.RowHeadersWidth = 25;
             string pkname = tablename + "Id";
+            foreach (DataGridViewColumn col in grid.Columns)
+            {
+                if (col.Name.EndsWith("Id"))
+                {
+                    col.Visible = false;
+                }
+            }
             if (grid.Columns.Contains(pkname))
             {
                 grid.Columns[pkname].Visible = false;
             }
+        }
+
+        public static void AddComboBoxToGrid(DataGridView grid, DataTable datasource, string tablename, string displaymember)
+        {
+            DataGridViewComboBoxColumn c = new();
+            c.DataSource = datasource;
+            c.DisplayMember = displaymember;
+            c.ValueMember = tablename + "Id";
+            c.DataPropertyName = c.ValueMember;
+            c.HeaderText = tablename;
+            grid.Columns.Insert(0, c);
         }
 
         public static bool IsFormOpen(Type formtype, int pkvalue = 0)
