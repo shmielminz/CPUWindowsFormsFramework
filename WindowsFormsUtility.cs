@@ -100,6 +100,11 @@ namespace CPUWindowsFormFramework
             grid.Columns.Insert(0, c);
         }
 
+        public static void AddDeleteButtonToGrid(DataGridView grid, string deletecolname)
+        {
+            grid.Columns.Add(new DataGridViewButtonColumn() { Name = deletecolname, Text = "X", HeaderText = "Delete", UseColumnTextForButtonValue = true });
+        }
+
         public static bool IsFormOpen(Type formtype, int pkvalue = 0)
         {
             bool exists = false;
