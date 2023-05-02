@@ -38,6 +38,9 @@ namespace CPUWindowsFormFramework
                 case "dtp":
                     propertyname = "Value";
                     break;
+                case "chk":
+                    propertyname = "Checked";
+                    break;
             }
 
             if (propertyname != "" && columnname != "")
